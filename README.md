@@ -52,8 +52,8 @@ cd mediq
 
 npm install
 
-npm run dev ```
-
+npm run dev 
+```
 ---
 
 ### ✅ 2. `CONTRIBUTING.md`
