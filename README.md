@@ -45,11 +45,14 @@ MedIQ is an innovative full-stack healthtech platform that leverages AI to provi
 
 ### 1️⃣ Clone the Repo
 
-``
+```
 git clone https://github.com/yourusername/mediq.git
+
 cd mediq
+
 npm install
-npm run dev ``
+
+npm run dev ```
 
 ---
 
