@@ -2,12 +2,7 @@
 
 MedIQ is an innovative full-stack healthtech platform that leverages AI to provide accurate symptom analysis, doctor discovery, and appointment booking — all in one place. Designed for the **FullStack Forge Hackathon**, MedIQ blends powerful AI with scalable architecture to solve real-world healthcare challenges.
 
----
 
-## 🌐 Live Demo
-
-> 🚀  
-> 📘  
 
 ---
 
