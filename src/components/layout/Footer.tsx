@@ -84,28 +84,38 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Contact Info */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-white">Contact Us</h3>
-            <div className="space-y-3">
-              <div className="flex items-start">
-                <Mail size={18} className="text-primary-400 mt-1 mr-2" />
-                <span className="text-neutral-300">support@mediq.health</span>
-              </div>
-              <div className="flex items-start">
-                <Phone size={18} className="text-primary-400 mt-1 mr-2" />
-                <span className="text-neutral-300">+1 (555) 123-4567</span>
-              </div>
-              <div className="flex items-start">
-                <MapPin size={18} className="text-primary-400 mt-1 mr-2" />
-                <span className="text-neutral-300">
-                  123 Health Avenue, Medical District
-                  <br />
-                  San Francisco, CA 94101
-                </span>
-              </div>
-            </div>
-          </div>
+{/* Contact Info */}
+<div>
+  <h3 className="text-lg font-semibold mb-4 text-white">Contact Us</h3>
+  <div className="space-y-3">
+    <div className="flex items-start">
+      <Mail size={18} className="text-primary-400 mt-1 mr-2" />
+      <a
+        href="mailto:support@mediq.health"
+        className="text-neutral-300 hover:underline hover:text-neutral-300"
+      >
+        support@mediq.health
+      </a>
+    </div>
+    <div className="flex items-start">
+      <Phone size={18} className="text-primary-400 mt-1 mr-2" />
+      <a
+        href="tel:+15551234567"
+        className="text-neutral-300 hover:underline hover:text-neutral-300"
+      >
+        +1 (555) 123-4567
+      </a>
+    </div>
+    <div className="flex items-start">
+      <MapPin size={18} className="text-primary-400 mt-1 mr-2" />
+      <span className="text-neutral-300">
+        123 Health Avenue, Medical District
+        <br />
+        San Francisco, CA 94101
+      </span>
+    </div>
+  </div>
+</div>
 
           {/* Newsletter */}
           <div>
