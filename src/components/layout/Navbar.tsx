@@ -109,7 +109,7 @@ const Navbar: React.FC = () => {
           </motion.div>
           <div className="relative overflow-hidden">
             <span className="text-xl font-bold bg-gradient-to-r from-primary-600 to-blue-500 text-transparent bg-clip-text dark:from-primary-400 dark:to-blue-300">
-              MedIQ
+              MedicalIQ
             </span>
             <motion.span 
               className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary-600 to-blue-500 dark:from-primary-400 dark:to-blue-300"
