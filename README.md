@@ -70,6 +70,3 @@ We welcome contributions from developers, designers, testers, and writers. Here'
 
 ---
 
-## 📩 Need Help?
-
-Join the discussion or raise an issue. We’d love to help!
