@@ -19,20 +19,39 @@ export interface SymptomCheck {
   timestamp: string;
 }
 
+// Result check types
 export interface SymptomResult {
-  conditions: Condition[];
-  urgency: 'mild' | 'moderate' | 'emergency';
-  remedies: string[];
-  consultDoctor: {
+  summary: string;
+  possibleConditions: {
+    name: string;
+    probability: number;
+    description: string;
+  }[];
+  severity: number;
+  recommendations: string[];
+  requiresAttention: boolean;
+  disclaimer: string;
+  urgency?: 'mild' | 'moderate' | 'emergency'; 
+  confidence?: 'High' | 'Medium' | 'Low'; 
+  conditions?: {
+    name: string;
+    severity?: 'low' | 'medium' | 'high';
+    description: string;
+    matchPercentage?: string;
+  }[];
+  remedies?: string[];
+  consultDoctor?: {
     required: boolean;
-    reason: string;
-  };
+    reason?: string;
+  };  
 }
 
 export interface Condition {
   name: string;
   description: string;
   probability?: number;
+  severity?: 'high' | 'medium' | 'low';
+  matchPercentage?: string;
 }
 
 // Doctor types
@@ -45,7 +64,13 @@ export interface Doctor {
   photoUrl: string;
   availability: string[];
   isAvailableToday: boolean;
+  experience: number;
+  patientCount: number;
+  reviews: number;
+  isVerified: boolean; 
 }
+
+
 
 // Appointment types
 export interface Appointment {

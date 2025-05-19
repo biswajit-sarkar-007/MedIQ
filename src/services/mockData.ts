@@ -140,7 +140,11 @@ export const mockDoctors: Doctor[] = [
     rating: 4.9,
     photoUrl: "https://images.pexels.com/photos/5214959/pexels-photo-5214959.jpeg",
     availability: ["Monday", "Tuesday", "Thursday"],
-    isAvailableToday: true
+    isAvailableToday: true,
+    experience: 12,
+    patientCount: 2300,
+    reviews: 120,
+    isVerified: true
   },
   {
     id: "2",
@@ -150,7 +154,11 @@ export const mockDoctors: Doctor[] = [
     rating: 4.7,
     photoUrl: "https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg",
     availability: ["Wednesday", "Friday"],
-    isAvailableToday: false
+    isAvailableToday: false,
+    experience: 9,
+    patientCount: 1800,
+    reviews: 95,
+    isVerified: true
   },
   {
     id: "3",
@@ -160,7 +168,11 @@ export const mockDoctors: Doctor[] = [
     rating: 4.8,
     photoUrl: "https://images.pexels.com/photos/5327585/pexels-photo-5327585.jpeg",
     availability: ["Monday", "Wednesday", "Friday"],
-    isAvailableToday: true
+    isAvailableToday: true,
+    experience: 7,
+    patientCount: 1500,
+    reviews: 110,
+    isVerified: true
   },
   {
     id: "4",
@@ -170,7 +182,11 @@ export const mockDoctors: Doctor[] = [
     rating: 4.9,
     photoUrl: "https://images.pexels.com/photos/5407206/pexels-photo-5407206.jpeg",
     availability: ["Tuesday", "Thursday"],
-    isAvailableToday: false
+    isAvailableToday: false,
+    experience: 15,
+    patientCount: 2600,
+    reviews: 135,
+    isVerified: true
   }
 ];
 
