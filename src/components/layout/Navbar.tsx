@@ -59,12 +59,12 @@ const Navbar: React.FC = () => {
   
   const navItems = [
     { name: 'Home', path: '/', icon: <Home size={18} /> },
+    { name: 'About', path: '/about', icon: <Info size={18} /> },
     { name: 'Symptom Checker', path: '/symptom-check', icon: <Stethoscope size={18} /> },
     { name: 'Find Doctors', path: '/doctors', icon: <Users size={18} /> },
     { name: 'Dashboard', path: '/dashboard', icon: <LayoutDashboard size={18} /> },
     { name: 'FAQ', path: '/faq', icon: <HelpCircle size={18} /> },
     { name: 'Contact', path: '/contact', icon: <MessageSquare size={18} /> },
-    { name: 'About', path: '/about', icon: <Info size={18} /> },
   ];
   
   const isActive = (path: string) => pathname === path;
@@ -265,7 +265,7 @@ const Navbar: React.FC = () => {
                   </Button>
                 </motion.div>
               </Link>
-              <Link to="/register">
+              <Link to="/signup">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -367,7 +367,7 @@ const Navbar: React.FC = () => {
                         Log In
                       </Button>
                     </Link>
-                    <Link to="/register" className="w-full" onClick={closeMenus}>
+                    <Link to="/signup" className="w-full" onClick={closeMenus}>
                       <Button 
                         fullWidth 
                         className="justify-center py-3 bg-gradient-to-r from-primary-600 to-blue-500 border-0"
