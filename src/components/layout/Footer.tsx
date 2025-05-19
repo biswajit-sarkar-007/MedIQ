@@ -215,10 +215,10 @@ const Footer: React.FC = () => {
                 <div>
                   <p className="text-xs text-neutral-400 mb-1">Email Us</p>
                   <a
-                    href="mailto:support@mediq.health"
+                    href="mailto:support@mediq.ai"
                     className="text-neutral-200 hover:text-primary-400 transition-colors"
                   >
-                    support@mediq.health
+                    support@mediq.ai
                   </a>
                 </div>
               </motion.div>
@@ -351,11 +351,11 @@ const Footer: React.FC = () => {
             </div>
             
             <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
-              <Link to="/privacy" className="text-neutral-400 hover:text-primary-400 transition-colors flex items-center">
+              <Link to="/privacypolicy" className="text-neutral-400 hover:text-primary-400 transition-colors flex items-center">
                 <Shield size={14} className="mr-1" />
                 Privacy Policy
               </Link>
-              <Link to="/terms" className="text-neutral-400 hover:text-primary-400 transition-colors flex items-center">
+              <Link to="/termsofservice" className="text-neutral-400 hover:text-primary-400 transition-colors flex items-center">
                 <AlertCircle size={14} className="mr-1" />
                 Terms of Service
               </Link>

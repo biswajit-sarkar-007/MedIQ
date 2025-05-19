@@ -17,6 +17,11 @@ import Dashboard from './pages/Dashboard';
 import Faq from './pages/FAQ';
 import Contact from './pages/Contact';
 import About from './pages/About';
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+import Accessibility from "./pages/Accessibility";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 function App() {
   return (
@@ -36,6 +41,11 @@ function App() {
                 <Route path="/faq" element={<Faq />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+                <Route path="/termsofservice" element={<TermsOfService />} />
+                <Route path="/accessibility" element={<Accessibility />} />
+                <Route path="/login" element={<Login/>} />
+                <Route path="/signup" element={<Signup/>} />
                 {/* Add routes for other pages as they're implemented */}
               </Routes>
             </main>
