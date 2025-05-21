@@ -22,6 +22,9 @@ import TermsOfService from "./pages/TermsOfService";
 import Accessibility from "./pages/Accessibility";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import MedicalDictionary from './pages/MedicalDictionary';
+import DrugDatabase from './pages/ DrugDatabase';
+import Webinars from './pages/Webinars';
 
 function App() {
   return (
@@ -46,6 +49,12 @@ function App() {
                 <Route path="/accessibility" element={<Accessibility />} />
                 <Route path="/login" element={<Login/>} />
                 <Route path="/signup" element={<Signup/>} />
+                <Route path="/medical-dictionary" element={<MedicalDictionary />} />
+                <Route path="/drug-database" element={<DrugDatabase />} />
+                <Route path="/webinars" element={<Webinars />} />
+                {/* Add more routes as needed */}
+                
+               
                 {/* Add routes for other pages as they're implemented */}
               </Routes>
             </main>

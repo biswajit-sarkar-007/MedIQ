@@ -175,8 +175,8 @@ const Footer: React.FC = () => {
             <ul className="space-y-3">
               {[
                 { name: "Health Blog", path: "/blog" },
-                { name: "Medical Dictionary", path: "/dictionary" },
-                { name: "Drug Database", path: "/medications" },
+                { name: "Medical Dictionary", path: "/medical-dictionary" },
+                { name: "Drug Database", path: "/drug-database" },
                 { name: "Research Papers", path: "/research" },
                 { name: "First Aid Guides", path: "/first-aid" },
                 { name: "Webinars", path: "/webinars" }
