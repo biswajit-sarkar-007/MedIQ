@@ -174,11 +174,11 @@ const Footer: React.FC = () => {
             </h3>
             <ul className="space-y-3">
               {[
-                { name: "Health Blog", path: "/blog" },
+                { name: "Health Blog", path: "/health-blog" },
                 { name: "Medical Dictionary", path: "/medical-dictionary" },
                 { name: "Drug Database", path: "/drug-database" },
-                { name: "Research Papers", path: "/research" },
-                { name: "First Aid Guides", path: "/first-aid" },
+                { name: "Research Papers", path: "/research-papers" },
+                { name: "First Aid Guides", path: "/first-aid-guides" },
                 { name: "Webinars", path: "/webinars" }
               ].map((link, index) => (
                 <motion.li

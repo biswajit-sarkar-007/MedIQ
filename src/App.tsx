@@ -25,6 +25,11 @@ import Signup from "./pages/Signup";
 import MedicalDictionary from './pages/MedicalDictionary';
 import DrugDatabase from './pages/ DrugDatabase';
 import Webinars from './pages/Webinars';
+import FirstAidGuides from './pages/FirstAidGuides';
+import ResearchPapers from './pages/ResearchPapers';
+import HealthBlog from './pages/HealthBlog';
+import BlogPostPage from './pages/BlogPostPage';
+import ForgotPassword from './pages/ForgotPassword';
 
 function App() {
   return (
@@ -52,6 +57,11 @@ function App() {
                 <Route path="/medical-dictionary" element={<MedicalDictionary />} />
                 <Route path="/drug-database" element={<DrugDatabase />} />
                 <Route path="/webinars" element={<Webinars />} />
+                <Route path="/first-aid-guides" element={<FirstAidGuides />} />
+                <Route path="/research-papers" element={<ResearchPapers />} />
+                <Route path="/health-blog" element={<HealthBlog />} />
+                <Route path="/health-blog/:id" element={<BlogPostPage />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
                 {/* Add more routes as needed */}
                 
                
