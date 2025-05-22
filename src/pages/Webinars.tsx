@@ -36,7 +36,8 @@ export default function Webinars() {
     const fetchWebinars = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch('http://localhost:5001/api/webinars'); // Use absolute URL
+        const apiUrl = import.meta.env.VITE_API_URL || '/api/webinars'; 
+        const response = await fetch(apiUrl);
         if (!response.ok) {
           throw new Error('Failed to fetch webinars');
         }
