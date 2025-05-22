@@ -21,7 +21,7 @@ const coreValues = [
   { 
     icon: <LightBulbIcon className="w-10 h-10 text-blue-500" />, 
     title: 'Innovation', 
-    desc: 'We embrace new ideas and technologies to drive healthcare forward.' 
+    desc: 'We mbrace new ideas and technologies to drive healthcare forward.' 
   },
   { 
     icon: <LockClosedIcon className="w-10 h-10 text-primary-500" />, 
