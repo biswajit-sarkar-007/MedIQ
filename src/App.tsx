@@ -22,14 +22,14 @@ import TermsOfService from "./pages/TermsOfService";
 import Accessibility from "./pages/Accessibility";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import MedicalDictionary from './pages/MedicalDictionary';
+import MedicalDictionary from './pages/MedicalDictionary';  
 import DrugDatabase from './pages/ DrugDatabase';
 import Webinars from './pages/Webinars';
 import FirstAidGuides from './pages/FirstAidGuides';
 import ResearchPapers from './pages/ResearchPapers';
 import HealthBlog from './pages/HealthBlog';
 import BlogPostPage from './pages/BlogPostPage';
-import ForgotPassword from './pages/ForgotPassword';
+import ForgotPassword from './pages/ForgotPassword';  
 
 function App() {
   return (
