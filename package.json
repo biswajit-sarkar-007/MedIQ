@@ -19,6 +19,7 @@
     "jspdf": "^3.0.1",
     "jspdf-autotable": "^5.0.2",
     "lucide-react": "^0.344.0",
+    "mongodb": "^6.16.0",
     "react": "^18.3.1",
     "react-calendar": "^4.8.0",
     "react-dom": "^18.3.1",
@@ -41,5 +42,10 @@
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.3.0",
     "vite": "^5.4.2"
-  }
+  },
+  "description": "MedIQ is an innovative full-stack healthtech platform that leverages AI to provide accurate symptom analysis, doctor discovery, and appointment booking — all in one place. Designed for the **FullStack Forge Hackathon**, MedIQ blends powerful AI with scalable architecture to solve real-world healthcare challenges.",
+  "main": "eslint.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
