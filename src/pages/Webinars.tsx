@@ -1,7 +1,7 @@
-import React, { useState, useMemo } from 'react';
-import { PlayCircle, Calendar, Filter,} from 'lucide-react';
-
+import React, { useState, useMemo, useEffect } from 'react';
+import { PlayCircle, Calendar, Filter } from 'lucide-react';
 import { CalendarDaysIcon, ClockIcon, UserGroupIcon, PlayCircleIcon, AcademicCapIcon, StarIcon, TrophyIcon, VideoCameraIcon, BellIcon, CheckIcon } from '@heroicons/react/24/outline';
+import { supabase } from '../services/supabaseClient';
 
 interface Webinar {
   id: string;
@@ -13,102 +13,13 @@ interface Webinar {
   description: string;
   topic: string;
   type: 'upcoming' | 'past';
-  registrationLink?: string;
-  recordingLink?: string;
+  registration_link?: string;
+  recording_link?: string;
   thumbnail: string;
   attendees?: number;
   rating?: number;
   featured?: boolean;
 }
-
-const WEBINARS_DATA: Webinar[] = [
-  {
-    id: '1',
-    title: 'AI-Powered Diagnostics: Revolutionizing Medical Imaging',
-    speakers: ['Dr. Sarah Chen', 'Dr. Michael Rodriguez'],
-    date: '2025-06-15',
-    time: '14:00 IST',
-    duration: '60 min',
-    description: 'Explore how artificial intelligence is transforming medical imaging diagnostics, from automated detection to predictive analytics.',
-    topic: 'AI & Diagnostics',
-    type: 'upcoming',
-    registrationLink: 'https://register.mediq.ai/webinar-1',
-    thumbnail: '/api/placeholder/400/225',
-    featured: true
-  },
-  {
-    id: '2',
-    title: 'Telemedicine Best Practices: Building Patient Trust',
-    speakers: ['Dr. Emily Johnson'],
-    date: '2025-06-08',
-    time: '15:30 IST',
-    duration: '45 min',
-    description: 'Learn effective strategies for delivering quality healthcare remotely while maintaining strong patient relationships.',
-    topic: 'Telemedicine',
-    type: 'upcoming',
-    registrationLink: 'https://register.mediq.ai/webinar-2',
-    thumbnail: '/api/placeholder/400/225'
-  },
-  {
-    id: '3',
-    title: 'Digital Health Records: Security and Compliance',
-    speakers: ['Dr. Alex Kumar', 'Lisa Thompson'],
-    date: '2025-05-28',
-    time: '16:00 IST',
-    duration: '90 min',
-    description: 'Understanding HIPAA compliance, data security best practices, and implementing secure digital health record systems.',
-    topic: 'Digital Health',
-    type: 'upcoming',
-    registrationLink: 'https://register.mediq.ai/webinar-3',
-    thumbnail: '/api/placeholder/400/225'
-  },
-  {
-    id: '4',
-    title: 'Machine Learning in Drug Discovery',
-    speakers: ['Dr. Robert Park', 'Dr. Anna Volkov'],
-    date: '2025-05-10',
-    time: '14:30 IST',
-    duration: '75 min',
-    description: 'How ML algorithms are accelerating pharmaceutical research and reducing time-to-market for new medications.',
-    topic: 'Research & Development',
-    type: 'past',
-    recordingLink: 'https://recordings.mediq.ai/webinar-4',
-    thumbnail: '/api/placeholder/400/225',
-    attendees: 1247,
-    rating: 4.8
-  },
-  {
-    id: '5',
-    title: 'Patient Data Privacy in the Digital Age',
-    speakers: ['Dr. Jennifer Lee'],
-    date: '2025-04-22',
-    time: '13:00 IST',
-    duration: '50 min',
-    description: 'Navigating the complex landscape of patient data privacy, consent management, and regulatory compliance.',
-    topic: 'Digital Health',
-    type: 'past',
-    recordingLink: 'https://recordings.mediq.ai/webinar-5',
-    thumbnail: '/api/placeholder/400/225',
-    attendees: 892,
-    rating: 4.6
-  },
-  {
-    id: '6',
-    title: 'Remote Patient Monitoring: Technologies and Trends',
-    speakers: ['Dr. David Kim', 'Dr. Rachel Adams'],
-    date: '2025-04-08',
-    time: '15:00 IST',
-    duration: '60 min',
-    description: 'Latest innovations in wearable technology, IoT devices, and continuous patient monitoring systems.',
-    topic: 'Telemedicine',
-    type: 'past',
-    recordingLink: 'https://recordings.mediq.ai/webinar-6',
-    thumbnail: '/api/placeholder/400/225',
-    attendees: 1156,
-    rating: 4.9,
-    featured: true
-  }
-];
 
 const TOPICS = ['All', 'AI & Diagnostics', 'Telemedicine', 'Digital Health', 'Research & Development'];
 
@@ -117,14 +28,37 @@ export default function Webinars() {
   const [selectedTopic, setSelectedTopic] = useState('All');
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [email, setEmail] = useState('');
+  const [webinars, setWebinars] = useState<Webinar[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchWebinars = async () => {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('webinars')
+        .select('*')
+        .order('date', { ascending: false });
+
+      if (error) {
+        setError('Failed to fetch webinars');
+        console.error(error);
+      } else {
+        setWebinars(data);
+      }
+      setLoading(false);
+    };
+
+    fetchWebinars();
+  }, []);
 
   const filteredWebinars = useMemo(() => {
-    return WEBINARS_DATA.filter(webinar => {
+    return webinars.filter(webinar => {
       const matchesType = webinar.type === activeTab;
       const matchesTopic = selectedTopic === 'All' || webinar.topic === selectedTopic;
       return matchesType && matchesTopic;
     });
-  }, [activeTab, selectedTopic]);
+  }, [activeTab, selectedTopic, webinars]);
 
   const handleSubscribe = () => {
     if (email && email.includes('@')) {
@@ -134,23 +68,27 @@ export default function Webinars() {
     }
   };
 
+  if (loading) {
+    return <div className="text-center py-16">Loading webinars...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center py-16 text-red-500">{error}</div>;
+  }
+
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50 dark:from-slate-950 dark:via-blue-950/30 dark:to-indigo-950">
-     
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-indigo-400/20 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-blue-400/15 to-cyan-400/15 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}} />
         <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-gradient-to-br from-indigo-400/10 to-purple-400/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '4s'}} />
         <div className="absolute bottom-1/4 left-1/3 w-48 h-48 bg-gradient-to-br from-cyan-400/10 to-blue-400/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '6s'}} />
-        
-       
         <div className="absolute top-20 left-20 w-2 h-2 bg-blue-400/60 rounded-full animate-bounce" style={{animationDelay: '1s'}} />
         <div className="absolute top-40 right-32 w-1 h-1 bg-indigo-400/60 rounded-full animate-bounce" style={{animationDelay: '3s'}} />
         <div className="absolute bottom-32 left-40 w-3 h-3 bg-cyan-400/60 rounded-full animate-bounce" style={{animationDelay: '5s'}} />
       </div>
 
       <div className="relative container mx-auto px-4 py-16 md:py-24">
-       
         <div className="text-center mb-16 md:mb-24">
           <div className="inline-flex justify-center items-center px-6 py-2 rounded-full bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/40 dark:to-indigo-900/40 border border-blue-200/50 dark:border-blue-700/50 text-blue-700 dark:text-blue-300 text-sm font-semibold mb-8 shadow-lg backdrop-blur-sm">
             <VideoCameraIcon className="w-5 h-5 mr-2" />
@@ -166,7 +104,6 @@ export default function Webinars() {
             Join leading healthcare professionals and experts in cutting-edge medical technology discussions
           </p>
           
-         
           <div className="flex justify-center items-center gap-8 mt-12">
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">25+</div>
@@ -185,10 +122,8 @@ export default function Webinars() {
           </div>
         </div>
 
-       
         <div className="mb-12">
           <div className="flex flex-col lg:flex-row gap-6 items-center justify-between mb-8">
-          
             <div className="flex bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-2xl p-1.5 shadow-2xl border border-blue-100/50 dark:border-slate-700/50">
               <button
                 onClick={() => setActiveTab('upcoming')}
@@ -220,7 +155,6 @@ export default function Webinars() {
               </button>
             </div>
 
-           
             <div className="flex items-center gap-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-2xl px-6 py-4 shadow-xl border border-blue-100/50 dark:border-slate-700/50">
               <Filter className="w-5 h-5 text-blue-500 dark:text-blue-400" />
               <select
@@ -236,7 +170,6 @@ export default function Webinars() {
           </div>
         </div>
 
-       
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {filteredWebinars.map((webinar, index) => (
             <div
@@ -247,7 +180,6 @@ export default function Webinars() {
                   : 'border-blue-100/50 dark:border-slate-700/50'
               }`}
             >
-             
               {webinar.featured && (
                 <div className="absolute top-4 left-4 z-10 flex items-center gap-1 px-3 py-1 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-white text-xs font-bold shadow-lg">
                   <TrophyIcon className="w-3 h-3" />
@@ -255,7 +187,6 @@ export default function Webinars() {
                 </div>
               )}
 
-             
               <div className="relative overflow-hidden h-56">
                 <img
                   src={webinar.thumbnail}
@@ -273,7 +204,6 @@ export default function Webinars() {
                   </span>
                 </div>
                 
-               
                 {webinar.type === 'past' && (
                   <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
                     {webinar.attendees && (
@@ -292,7 +222,6 @@ export default function Webinars() {
                 )}
               </div>
 
-             
               <div className="p-8">
                 <div className="flex items-center gap-2 mb-4">
                   <span className="px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/40 dark:to-indigo-900/40 text-blue-700 dark:text-blue-300 text-xs font-bold border border-blue-200/50 dark:border-blue-700/50">
@@ -329,10 +258,9 @@ export default function Webinars() {
                   </div>
                 </div>
 
-               
                 {webinar.type === 'upcoming' ? (
                   <a
-                    href={webinar.registrationLink}
+                    href={webinar.registration_link}
                     className="group/btn w-full inline-flex items-center justify-center px-6 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold shadow-xl shadow-blue-500/30 hover:shadow-2xl hover:shadow-blue-500/40 transition-all duration-300 transform hover:scale-105 relative overflow-hidden"
                   >
                     <CalendarDaysIcon className="w-5 h-5 mr-2 group-hover/btn:animate-bounce" />
@@ -341,7 +269,7 @@ export default function Webinars() {
                   </a>
                 ) : (
                   <a
-                    href={webinar.recordingLink}
+                    href={webinar.recording_link}
                     className="group/btn w-full inline-flex items-center justify-center px-6 py-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white font-bold shadow-xl shadow-emerald-500/30 hover:shadow-2xl hover:shadow-emerald-500/40 transition-all duration-300 transform hover:scale-105 relative overflow-hidden"
                   >
                     <PlayCircleIcon className="w-5 h-5 mr-2 group-hover/btn:animate-pulse" />
@@ -354,10 +282,8 @@ export default function Webinars() {
           ))}
         </div>
 
-       
         <div className="max-w-4xl mx-auto">
           <div className="relative bg-gradient-to-br from-white/90 to-blue-50/90 dark:from-slate-800/90 dark:to-slate-900/90 backdrop-blur-xl rounded-3xl border border-blue-100/50 dark:border-slate-700/50 p-12 md:p-16 shadow-3xl overflow-hidden">
-           
             <div className="absolute inset-0 opacity-5">
               <div className="absolute top-10 left-10 w-32 h-32 border-2 border-blue-500 rounded-full" />
               <div className="absolute bottom-10 right-10 w-24 h-24 border-2 border-indigo-500 rounded-full" />
@@ -377,35 +303,34 @@ export default function Webinars() {
             </div>
 
             <div className="max-w-xl mx-auto px-4">
-  <div className="flex flex-col sm:flex-row gap-4 items-stretch">
-    <input
-      type="email"
-      value={email}
-      onChange={(e) => setEmail(e.target.value)}
-      placeholder="Enter your email address"
-      className="w-full sm:w-96 px-6 py-4 rounded-2xl border border-blue-200/50 dark:border-slate-600/50 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20 transition-all duration-300 text-lg font-medium shadow-lg"
-    />
-    <button
-      onClick={handleSubscribe}
-      className="w-full sm:w-auto group px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold shadow-xl shadow-blue-500/30 hover:shadow-2xl hover:shadow-blue-500/40 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center relative overflow-hidden"
-      disabled={isSubscribed || !email}
-    >
-      {isSubscribed ? (
-        <>
-          <CheckIcon className="w-6 h-6 mr-2 animate-bounce" />
-          Subscribed!
-        </>
-      ) : (
-        <>
-          <BellIcon className="w-6 h-6 mr-2 group-hover:animate-pulse" />
-          Subscribe
-        </>
-      )}
-      <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-    </button>
-  </div>
-</div>
-
+              <div className="flex flex-col sm:flex-row gap-4 items-stretch">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email address"
+                  className="w-full sm:w-96 px-6 py-4 rounded-2xl border border-blue-200/50 dark:border-slate-600/50 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20 transition-all duration-300 text-lg font-medium shadow-lg"
+                />
+                <button
+                  onClick={handleSubscribe}
+                  className="w-full sm:w-auto group px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold shadow-xl shadow-blue-500/30 hover:shadow-2xl hover:shadow-blue-500/40 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center relative overflow-hidden"
+                  disabled={isSubscribed || !email}
+                >
+                  {isSubscribed ? (
+                    <>
+                      <CheckIcon className="w-6 h-6 mr-2 animate-bounce" />
+                      Subscribed!
+                    </>
+                  ) : (
+                    <>
+                      <BellIcon className="w-6 h-6 mr-2 group-hover:animate-pulse" />
+                      Subscribe
+                    </>
+                  )}
+                  <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                </button>
+              </div>
+            </div>
 
             {isSubscribed && (
               <div className="mt-6 text-center text-emerald-600 dark:text-emerald-400 font-bold text-lg animate-pulse">
@@ -415,7 +340,6 @@ export default function Webinars() {
           </div>
         </div>
 
-        
         <div className="relative pointer-events-none">
           <div className="absolute top-20 left-10 opacity-20 animate-float">
             <VideoCameraIcon className="w-20 h-20 text-blue-400 dark:text-blue-600" />
