@@ -1,4 +1,4 @@
-# 💊 MedIQ – AI-Powered Health Symptom Checker & Appointment Platform ( The AI part will be launching soon...)
+# 💊 MedIQ – AI-Powered Health Symptom Checker & Appointment Platform 
 
 MedIQ is an innovative full-stack healthtech platform that leverages AI to provide accurate symptom analysis, doctor discovery, and appointment booking — all in one place. Designed for the **FullStack Forge Hackathon**, MedIQ blends powerful AI with scalable architecture to solve real-world healthcare challenges.
 
@@ -24,7 +24,7 @@ MedIQ is an innovative full-stack healthtech platform that leverages AI to provi
 |-----------|--------------|
 | Frontend  | React.js, TailwindCSS, Redux Toolkit, Framer Motion |
 | Backend   | Node.js, Express, JWT, Multer |
-| Database  | MongoDB Atlas |
+| Database  |  Supabase |
 | AI API    | Gemini API / Infermedica |
 | Testing   | Jest, React Testing Library, Supertest |
 | DevOps    | Vercel, Render, Postman, GitHub |
